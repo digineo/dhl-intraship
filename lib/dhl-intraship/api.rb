@@ -77,7 +77,7 @@ module Dhl
 
             if returnXML
               puts r
-              xml_label = r[:creation_state][:xmllabel]
+              xml_label = r[:creation_state][:xml_label]
               {shipment_number: shipment_number, xml_label: xml_label}
             else
               label_url = r[:creation_state][:labelurl]
