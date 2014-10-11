@@ -1,4 +1,5 @@
 require 'savon'
+require 'active_support/core_ext/hash'
 
 module Dhl
   module Intraship
