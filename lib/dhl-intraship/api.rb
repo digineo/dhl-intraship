@@ -49,7 +49,7 @@ module Dhl
           ekp = @ekp
           partner_id = @partner_id
 
-          returnXML = @config && @config[:label_response_type] && @config[:label_response_type] == :xml;
+          returnXML = @options && @options[:label_response_type] && @options[:label_response_type] == :xml;
           result = @client.request "de:CreateShipmentDDRequest" do
             soap.xml do |xml|
               xml.soapenv(:Envelope, DEFAULT_NAMESPACES) do |xml|
