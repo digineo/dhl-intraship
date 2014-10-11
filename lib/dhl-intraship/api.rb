@@ -1,6 +1,4 @@
 require 'savon'
-require 'active_support'
-require 'active_support/core_ext/hash'
 
 module Dhl
   module Intraship
@@ -78,11 +76,11 @@ module Dhl
             shipment_number = r[:creation_state][:shipment_number][:shipment_number]
 
             if returnXML
-              xml_label = ::HASH.from_xml r[:creation_state][:xml_label]
+              xml_label = r[:creation_state][:xml_label]
               {shipment_number: shipment_number, xml_label: xml_label, response: r}
             else
               label_url = r[:creation_state][:labelurl]
-              {shipment_number: shipment_number, label_url: label_url}
+              {shipment_number: shipment_number, label_url: label_url, response: r}
             end
 
           else
