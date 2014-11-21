@@ -38,6 +38,7 @@ module Dhl
         @client = ::Savon::Client.new do
           wsdl.document = wsdl_url
           wsdl.endpoint = endpoint
+          encoding = "ISO-8859-1"
         end
       end
 
