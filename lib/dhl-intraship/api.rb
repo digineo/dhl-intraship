@@ -35,10 +35,7 @@ module Dhl
         @partner_id = config[:partner_id] || '01'
 
         @options = options
-        @client = ::Savon::Client.new do
-          wsdl.document = wsdl_url
-          wsdl.endpoint = endpoint
-        end
+        @client = ::Savon.client(wsdl: wsdl_url)
       end
 
       def createShipmentDD(shipments)
@@ -125,7 +122,7 @@ module Dhl
         raise "Pickup_address must be of type Address! Is #{pickup_address.class}" unless pickup_address.kind_of? Address
         raise "Contact orderer must be of type Address! Is #{contact_orderer.class}" unless contact_orderer.nil? or contact_orderer.kind_of? Address
 
-        if booking_information.account.nil? and [:DDI, :DDN].includes?(booking_information.product_id)
+        if booking_information.account.nil? and [:DDI, :DDN].include?(booking_information.product_id)
           booking_information.account = @ekp
         end
         if booking_information.attendance.nil?
@@ -159,8 +156,6 @@ module Dhl
           raise "Intraship call failed with code #{r[:status][:status_code]}: #{r[:status][:status_message]}" unless r[:status][:status_code] == '0'
 
           r[:confirmation_number]
-        rescue Savon::Error => error
-          raise error
         end
       end
 
